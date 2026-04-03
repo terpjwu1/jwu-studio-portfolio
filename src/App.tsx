@@ -1159,6 +1159,7 @@ function ParametricField() {
 
 function App() {
   const carouselRef = useRef<HTMLDivElement>(null)
+  const contactRef = useRef<HTMLElement>(null)
   const [activePiece, setActivePiece] = useState(0)
   const [contactState, setContactState] = useState<{
     status: 'idle' | 'sending' | 'success' | 'error'
@@ -1209,6 +1210,13 @@ function App() {
     element.scrollBy({
       left: step * direction,
       behavior: 'smooth',
+    })
+  }
+
+  const scrollToContact = () => {
+    contactRef.current?.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start',
     })
   }
 
@@ -1298,9 +1306,9 @@ function App() {
         </div>
         <div className="masthead-mode">
           <span>Systems / Type / Motion</span>
-          <a className="masthead-contact" href="#contact">
+          <button type="button" className="masthead-contact" onClick={scrollToContact}>
             Contact Me
-          </a>
+          </button>
         </div>
       </section>
 
@@ -1356,7 +1364,7 @@ function App() {
         </div>
       </section>
 
-      <section className="contact-shell" id="contact">
+      <section className="contact-shell" id="contact" ref={contactRef}>
         <div className="contact-header">
           <div className="contact-heading">Contact Me</div>
           <div className="contact-note">Email or phone, plus a short project description.</div>
