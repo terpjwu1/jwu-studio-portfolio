@@ -7,7 +7,8 @@
 
 .masthead,
 .hero-grid,
-.clips-shell {
+.clips-shell,
+.contact-shell {
   border: 3px solid #050103;
   background: #EAEFE9;
 }
@@ -29,11 +30,71 @@
 
 .masthead-brand {
   text-transform: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: "Arial Narrow", "Avenir Next Condensed", "Helvetica Neue", sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.brand-glyph {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 2px solid #050103;
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.brand-glyph--j {
+  background: #E70503;
+}
+
+.brand-glyph--w {
+  background: #FDDE06;
+}
+
+.brand-glyph--u {
+  background: #000591;
+  color: #EAEFE9;
+}
+
+.brand-word {
+  padding-left: 4px;
+  font-size: 0.96rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
 .masthead-mode {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
   border-left: 3px solid #050103;
   text-align: right;
+}
+
+.masthead-contact {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 38px;
+  padding: 0 14px;
+  border: 2px solid #050103;
+  color: inherit;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 0.72rem;
+}
+
+.masthead-contact:hover {
+  background: #000591;
+  color: #EAEFE9;
 }
 
 .hero-grid {
@@ -120,7 +181,7 @@
 }
 
 .cta-row a:hover {
-  background: #E70503;
+  background: #000591;
   color: #EAEFE9;
 }
 
@@ -158,6 +219,7 @@
   position: relative;
   min-height: 0;
   outline: none;
+  touch-action: none;
 }
 
 .field-canvas {
@@ -169,6 +231,142 @@
 
 .clips-shell {
   margin-top: 24px;
+}
+
+.contact-shell {
+  margin-top: 24px;
+}
+
+.contact-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 18px;
+  padding: 18px 22px;
+  border-bottom: 2px solid #050103;
+}
+
+.contact-heading,
+.contact-note {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.contact-note {
+  opacity: 0.68;
+  text-align: right;
+}
+
+.contact-form {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0;
+}
+
+.contact-field {
+  display: grid;
+  gap: 10px;
+  padding: 18px 22px 20px;
+  border-right: 2px solid #050103;
+  border-bottom: 2px solid #050103;
+}
+
+.contact-field:nth-child(2) {
+  border-right: 0;
+}
+
+.contact-field--full {
+  grid-column: 1 / -1;
+  border-right: 0;
+}
+
+.contact-field span {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.contact-field input,
+.contact-field textarea {
+  width: 100%;
+  border: 0;
+  outline: none;
+  background: transparent;
+  color: #050103;
+  font: inherit;
+  font-size: 1rem;
+  line-height: 1.5;
+  resize: vertical;
+}
+
+.contact-field input::placeholder,
+.contact-field textarea::placeholder {
+  color: rgba(5, 1, 3, 0.42);
+}
+
+.contact-actions {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 18px 22px;
+}
+
+.contact-submit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 160px;
+  min-height: 44px;
+  padding: 0 16px;
+  border: 2px solid #050103;
+  background: #EAEFE9;
+  color: inherit;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.contact-submit:hover:not(:disabled) {
+  background: #000591;
+  color: #EAEFE9;
+}
+
+.contact-submit:disabled {
+  opacity: 0.55;
+  cursor: default;
+}
+
+.contact-status {
+  margin: 0;
+  font-size: 0.78rem;
+  line-height: 1.5;
+}
+
+.contact-status--success {
+  color: rgba(5, 1, 3, 0.7);
+}
+
+.contact-status--error {
+  color: #E70503;
+}
+
+.contact-honey {
+  position: absolute;
+  left: -9999px;
+}
+
+.site-footer {
+  padding: 18px 4px 6px;
+  color: rgba(5, 1, 3, 0.44);
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
 }
 
 .clips-toolbar {
@@ -187,6 +385,19 @@
   text-transform: uppercase;
 }
 
+.clips-heading {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.clips-toolbar-right {
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+}
+
 .clips-nav {
   display: inline-flex;
   gap: 0;
@@ -203,18 +414,6 @@
   letter-spacing: 0.14em;
   text-transform: uppercase;
   cursor: pointer;
-}
-
-.clips-progress {
-  height: 8px;
-  border-bottom: 2px solid #050103;
-  background: rgba(5, 1, 3, 0.06);
-}
-
-.clips-progress-bar {
-  height: 100%;
-  background: #050103;
-  transition: width 220ms ease;
 }
 
 .clips-nav button + button {
@@ -329,7 +528,8 @@
 
   .masthead,
   .hero-grid,
-  .clips-shell {
+  .clips-shell,
+  .contact-shell {
     border-width: 2px;
   }
 
@@ -347,7 +547,25 @@
   }
 
   .masthead-mode {
+    flex-wrap: wrap;
+    justify-content: space-between;
     text-align: left;
+  }
+
+  .contact-header,
+  .contact-actions {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .contact-form {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-field,
+  .contact-field:nth-child(2),
+  .contact-field--full {
+    border-right: 0;
   }
 
   .intro-block {
@@ -384,13 +602,35 @@
     font-size: 0.72rem;
   }
 
+  .masthead-contact {
+    min-height: 34px;
+    padding: 0 12px;
+    font-size: 0.66rem;
+  }
+
+  .contact-heading,
+  .contact-note,
+  .contact-status {
+    font-size: 0.72rem;
+  }
+
+  .brand-glyph {
+    width: 1.35rem;
+    height: 1.35rem;
+    font-size: 0.92rem;
+  }
+
+  .brand-word {
+    font-size: 0.82rem;
+  }
+
   .clips-toolbar {
     padding: 12px 14px;
     border-bottom-width: 2px;
   }
 
-  .clips-progress {
-    border-bottom-width: 2px;
+  .clips-toolbar-right {
+    gap: 10px;
   }
 
   .clips-strip {
