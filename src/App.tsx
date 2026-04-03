@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import type { FormEvent } from 'react'
 import { layoutNextLine, prepareWithSegments } from '@chenglou/pretext'
+import { SpeedInsights } from '@vercel/speed-insights/react'
 import './App.css'
 
 type Piece = {
@@ -1449,6 +1450,7 @@ function App() {
       <footer className="site-footer">
         © 2026 Jwu Studio. Jwu Studio is a trade name of Fiora Studio LLC.
       </footer>
+      <SpeedInsights />
     </main>
   )
 }
