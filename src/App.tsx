@@ -837,8 +837,13 @@ function ParametricField() {
   const wordmarkCenterRef = useRef<Point>({ x: 0, y: 0 })
   const dragRef = useRef({
     active: false,
+    intentLocked: false,
     offsetX: 0,
     offsetY: 0,
+    pointerId: -1,
+    pointerType: '',
+    startX: 0,
+    startY: 0,
   })
   const [sessionSeed] = useState(getSessionSeed)
   const [sessionConfig] = useState(() => buildSessionConfig(sessionSeed))
@@ -926,15 +931,51 @@ function ParametricField() {
         return
       }
 
-      dragRef.current.active = true
+      dragRef.current.pointerId = event.pointerId
+      dragRef.current.pointerType = event.pointerType
+      dragRef.current.startX = point.x
+      dragRef.current.startY = point.y
       dragRef.current.offsetX = point.x - wordmarkCenterRef.current.x
       dragRef.current.offsetY = point.y - wordmarkCenterRef.current.y
-      element.style.cursor = 'grabbing'
-      element.setPointerCapture(event.pointerId)
+      dragRef.current.active = event.pointerType === 'mouse'
+      dragRef.current.intentLocked = event.pointerType === 'mouse'
+      element.style.cursor = event.pointerType === 'mouse' ? 'grabbing' : 'grab'
+
+      if (event.pointerType === 'mouse') {
+        element.setPointerCapture(event.pointerId)
+      }
     }
 
     const handlePointerMove = (event: PointerEvent) => {
+      if (dragRef.current.pointerId !== -1 && event.pointerId !== dragRef.current.pointerId) {
+        return
+      }
+
       const point = getLocalPoint(event)
+
+      if (dragRef.current.pointerType === 'touch' && !dragRef.current.intentLocked) {
+        const dx = point.x - dragRef.current.startX
+        const dy = point.y - dragRef.current.startY
+        const threshold = 10
+
+        if (Math.abs(dx) < threshold && Math.abs(dy) < threshold) {
+          return
+        }
+
+        dragRef.current.intentLocked = true
+
+        if (Math.abs(dy) > Math.abs(dx)) {
+          dragRef.current.pointerId = -1
+          dragRef.current.pointerType = ''
+          dragRef.current.intentLocked = false
+          dragRef.current.active = false
+          element.style.cursor = 'default'
+          return
+        }
+
+        dragRef.current.active = true
+        element.setPointerCapture(event.pointerId)
+      }
 
       if (!dragRef.current.active) {
         updateCursor(point)
@@ -949,12 +990,20 @@ function ParametricField() {
     }
 
     const handlePointerUp = (event: PointerEvent) => {
-      if (!dragRef.current.active) {
+      if (dragRef.current.pointerId !== -1 && event.pointerId !== dragRef.current.pointerId) {
         return
       }
 
+      const wasActive = dragRef.current.active
       dragRef.current.active = false
-      element.releasePointerCapture(event.pointerId)
+      dragRef.current.intentLocked = false
+      dragRef.current.pointerId = -1
+      dragRef.current.pointerType = ''
+
+      if (wasActive) {
+        element.releasePointerCapture(event.pointerId)
+      }
+
       updateCursor(getLocalPoint(event))
     }
 
